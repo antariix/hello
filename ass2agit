@@ -1,0 +1,104 @@
+Microsoft Windows [Version 10.0.26200.8246]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\antar>cd C:\Users\antar\Desktop\COLLEGE
+
+C:\Users\antar\Desktop\COLLEGE>pwd
+'pwd' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\antar\Desktop\COLLEGE>echo %cd%
+C:\Users\antar\Desktop\COLLEGE
+
+C:\Users\antar\Desktop\COLLEGE>cd Desktop
+The system cannot find the path specified.
+
+C:\Users\antar\Desktop\COLLEGE>cd C:\Users\antar\Desktop
+
+C:\Users\antar\Desktop>cd C:\Users\antar\Desktop\COLLEGE
+
+C:\Users\antar\Desktop\COLLEGE>cd ..
+
+C:\Users\antar\Desktop>mkdir pract_1a
+
+C:\Users\antar\Desktop>cd pract_1a
+
+C:\Users\antar\Desktop\pract_1a>echo. > index.html
+
+C:\Users\antar\Desktop\pract_1a>echo. > style.css
+
+C:\Users\antar\Desktop\pract_1a>echo. > register.html
+
+C:\Users\antar\Desktop\pract_1a>echo. > display.html
+
+C:\Users\antar\Desktop\pract_1a>cd C:\Users\antar\Desktop
+
+C:\Users\antar\Desktop>mkdir LP2-Practicals
+
+C:\Users\antar\Desktop>cd LP2-Practicals
+
+C:\Users\antar\Desktop\LP2-Practicals>mkdir practical-1a
+
+C:\Users\antar\Desktop\LP2-Practicals>mkdir practical-1b
+
+C:\Users\antar\Desktop\LP2-Practicals>cd practical-1b
+
+C:\Users\antar\Desktop\LP2-Practicals\practical-1b>echo. > register.html
+
+C:\Users\antar\Desktop\LP2-Practicals\practical-1b>echo. > display.html
+
+C:\Users\antar\Desktop\LP2-Practicals\practical-1b>git --version
+git version 2.53.0.windows.2
+
+C:\Users\antar\Desktop\LP2-Practicals\practical-1b>git config --list
+diff.astextplain.textconv=astextplain
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+filter.lfs.process=git-lfs filter-process
+filter.lfs.required=true
+http.sslbackend=schannel
+core.autocrlf=true
+core.fscache=true
+core.symlinks=false
+pull.rebase=false
+credential.helper=manager
+credential.https://dev.azure.com.usehttppath=true
+init.defaultbranch=master
+user.name=Antarix Pawar
+user.email=antarixpp@gmail.com
+
+C:\Users\antar\Desktop\LP2-Practicals\practical-1b>cd ..
+
+C:\Users\antar\Desktop\LP2-Practicals>git init
+Initialized empty Git repository in C:/Users/antar/Desktop/LP2-Practicals/.git/
+
+C:\Users\antar\Desktop\LP2-Practicals>git add .
+
+C:\Users\antar\Desktop\LP2-Practicals>git commit -m "Completed Assignment 1a and 1b"
+[master (root-commit) 544db5e] Completed Assignment 1a and 1b
+ 4 files changed, 197 insertions(+)
+ create mode 100644 practical-1a/index.html
+ create mode 100644 practical-1a/style.css
+ create mode 100644 practical-1b/display.html
+ create mode 100644 practical-1b/register.html
+
+C:\Users\antar\Desktop\LP2-Practicals>git remote add origin https://github.com/antariix/LP2-Practicals.git
+
+C:\Users\antar\Desktop\LP2-Practicals>git branch -M main
+
+C:\Users\antar\Desktop\LP2-Practicals>git push -u origin main
+info: please complete authentication in your browser...
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 18 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (8/8), 3.01 KiB | 3.01 MiB/s, done.
+Total 8 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/antariix/LP2-Practicals.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+
+C:\Users\antar\Desktop\LP2-Practicals>docker --version
+Docker version 29.3.1, build c2be9cc
+
+C:\Users\antar\Desktop\LP2-Practicals
