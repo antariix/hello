@@ -1,0 +1,77 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load datasets
+df_air = pd.read_csv('air_quality.csv')
+df_heart = pd.read_csv('heart.csv')
+
+# Use a clean style for all plots
+sns.set_theme(style="whitegrid")
+
+print("Visualization libraries ready!")
+
+
+
+
+
+
+
+
+
+
+# 1. Scatter Plot: Ozone vs Temp
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=df_air, x='Temp', y='Ozone', hue='Month', palette='viridis')
+plt.title('Ozone Levels vs Temperature')
+plt.show()
+
+# 2. Box Plot: Distribution of Ozone by Month (to see outliers)
+plt.figure(figsize=(8, 5))
+sns.boxplot(data=df_air, x='Month', y='Ozone')
+plt.title('Ozone Distribution per Month')
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 1. Histogram: Age Distribution
+plt.figure(figsize=(8, 5))
+sns.histplot(df_heart['age'], kde=True, color='blue')
+plt.title('Distribution of Patient Age')
+plt.xlabel('Age')
+plt.show()
+
+# 2. Bar Chart: Count of Heart Disease (Target) by Gender
+# (Assuming sex: 1=Male, 0=Female)
+plt.figure(figsize=(7, 5))
+sns.countplot(data=df_heart, x='sex', hue='target')
+plt.title('Heart Disease Frequency by Gender')
+plt.legend(title='Heart Disease', labels=['No', 'Yes'])
+plt.show()
+
+
+
+
+
+
+
+
+
+
+plt.figure(figsize=(12, 8))
+correlation_matrix = df_heart.corr()
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Correlation Heatmap of Heart Disease Features')
+plt.show()
