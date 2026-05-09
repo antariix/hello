@@ -1,131 +1,111 @@
-Since you cannot copy-paste and your internet session on DistroSea is having issues resolving names (DNS failure), I will provide the code for **Practical 4** in a way that allows you to create your own small datasets manually so you can actually run the code.
-
-### 📝 Practical 4: Python Data Analytics
-
-> **Task:** Perform the following operations using Python on the Air quality and Heart Diseases data sets: **a.** Data cleaning **b.** Data integration **c.** Data transformation **d.** Error correcting **e.** Data model building.
-
----
-
-### 🛠️ Step 1: Create the Datasets (Manual)
-
-Since your `wget` might fail without internet, type these commands in your terminal to create two small CSV files to work with.
-
-**1. Create `air_quality.csv`:**
-
-```bash
-nano air_quality.csv
-
-```
-
-*Paste or type this small sample:*
-
-```text
-Ozone,Solar.R,Wind,Temp,Month,Day
-41,190,7.4,67,5,1
-36,118,8,72,5,2
-12,149,12.6,74,5,3
-,,11.5,62,5,4
-
-```
-
-*(Press `Ctrl+O`, `Enter`, then `Ctrl+X` to save and exit).*
-
-**2. Create `heart.csv`:**
-
-```bash
-nano heart.csv
-
-```
-
-*Paste or type this small sample:*
-
-```text
-age,sex,cp,trestbps,chol,fbs,target
-63,1,3,145,233,1,1
-37,1,2,130,250,0,1
-41,0,1,130,204,0,1
-56,1,1,120,236,0,0
-
-```
-
-*(Press `Ctrl+O`, `Enter`, then `Ctrl+X` to save and exit).*
-
----
-
-### 🐍 Step 2: The Python Script
-
-Now, create a file named `pract4.py` and type the following code. I have kept it as short as possible.
-
-```bash
-nano pract4.py
-
-```
-
-**Type this code inside:**
-
-```python
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
+import numpy as np
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 
-# --- a. Data Loading & Cleaning ---
+# Load the datasets
+# (Ensure air_quality.csv and heart.csv are in the same folder)
 df_air = pd.read_csv('air_quality.csv')
-# Fill missing values with 0
-df_air = df_air.fillna(0) 
-print("Cleaned Air Data:\n", df_air.head())
+df_heart = pd.read_csv('heart.csv')
 
-# --- b. Data Integration ---
-# Merging two subsets of the same data
-sub1 = df_air[['Ozone', 'Temp']]
-sub2 = df_air[['Month', 'Day']]
-integrated = sub1.join(sub2)
-print("\nIntegrated Data:\n", integrated.head())
+print("Datasets Loaded Successfully!")
 
-# --- c. Data Transformation ---
-# Scaling the 'Temp' column
+
+
+
+
+
+
+
+
+# Check for nulls
+print(df_air.isnull().sum())
+
+# Filling missing values in Air Quality (e.g., Ozone column)
+df_air['Ozone'] = df_air['Ozone'].fillna(df_air['Ozone'].mean())
+
+# Removing duplicate rows if any
+df_air = df_air.drop_duplicates()
+print("Cleaning Complete.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Creating two subsets to demonstrate integration
+subset_1 = df_air[['Ozone', 'Solar.R', 'Wind']]
+subset_2 = df_air[['Temp', 'Month', 'Day']]
+
+# Merging them back together
+df_integrated = subset_1.join(subset_2)
+print("Data Integration Complete. Shape:", df_integrated.shape)
+
+
+
+
+
+
+
+
+
+
+
+# Heart dataset often has 'Sex' as 0/1, but if it was text, we'd use:
+le = LabelEncoder()
+df_heart['sex'] = le.fit_transform(df_heart['sex'])
+
+# Scaling numerical features
 scaler = StandardScaler()
-df_air['Temp'] = scaler.fit_transform(df_air[['Temp']])
+df_heart[['age', 'trestbps', 'chol']] = scaler.fit_transform(df_heart[['age', 'trestbps', 'chol']])
+print("Transformation Complete.")
 
-# --- d. Error Correcting ---
-# Replace impossible values (e.g., Temp < 0) with mean
-df_air.loc[df_air['Temp'] < 0, 'Temp'] = df_air['Temp'].mean()
 
-# --- e. Data Model Building ---
-df_h = pd.read_csv('heart.csv')
-X = df_h[['age', 'chol']] # Features
-y = df_h['target']        # Label
-model = LogisticRegression()
-model.fit(X, y)
-print("\nModel trained. Accuracy Score:", model.score(X, y))
 
-```
 
-*(Press `Ctrl+O`, `Enter`, then `Ctrl+X` to save).*
 
----
 
-### 🚀 Step 3: Run the Practical
 
-In your terminal, type:
 
-```bash
-python3 pract4.py
 
-```
+# Example: If 'trestbps' (Blood Pressure) is 0, it's an error
+df_heart.loc[df_heart['trestbps'] == 0, 'trestbps'] = df_heart['trestbps'].mean()
 
----
+# Removing outliers where cholesterol is exceptionally high (e.g., > 500)
+df_heart = df_heart[df_heart['chol'] < 500]
+print("Error Correction Complete.")
 
-### 📖 Explanation of Commands
 
-| Command/Function | What it does |
-| --- | --- |
-| `nano [file]` | Opens a text editor in the terminal so you can write files without a mouse. |
-| `pd.read_csv()` | Reads your text files and turns them into a "DataFrame" (a table Python understands). |
-| `.fillna(0)` | Replaces "NaN" (empty spots) with 0 so the math doesn't break. |
-| `.join()` | Combines two different tables into one. |
-| `StandardScaler()` | Shrinks numbers so they are easier for the AI to compare (e.g., scale 1-100 to 0-1). |
-| `.loc[...] = ...` | Finds specific rows that meet a condition (like an error) and fixes them. |
-| `LogisticRegression()` | A standard machine learning model used to predict "Yes" (1) or "No" (0) for heart disease. |
-| `.fit(X, y)` | The "Learning" phase where the model looks at features (X) to predict the target (y). |
 
-**Once you have finished running this and seeing the output, tell me if you are ready for the next practical or if you need help fixing an error!**
+
+
+
+
+
+
+
+
+# Define Features (X) and Target (y)
+X = df_heart.drop('target', axis=1) # 'target' is the disease presence
+y = df_heart['target']
+
+# Split data: 80% train, 20% test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Build Model
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+# Output Results
+accuracy = model.score(X_test, y_test)
+print(f"Model Training Complete. Test Accuracy: {accuracy * 100:.2f}%")
+
